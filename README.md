@@ -22,6 +22,7 @@ In traditional chat interfaces, when AI provides options, it typically uses list
 - ⚡ **Zero Friction** - Click text to instantly trigger intent flow
 - 🔄 **Seamless Degradation** - Displays as normal links in standard Markdown renderers
 - 🔒 **Security & Constraints** - No script execution or hidden link jumping
+- 🔧 **Infinitely Extensible** - Developers can freely define custom directives based on business scenarios
 
 ## 🚀 Quick Start
 
@@ -102,6 +103,77 @@ function IACTLink({ href, children }) {
   return <a href={href}>{children}</a>;
 }
 ```
+
+## 🔧 Protocol Extension
+
+The IACT protocol is designed to be **open and infinitely extensible**. Developers can freely define any custom directives starting with `!` based on their Agent's business scenarios and client capabilities.
+
+### Extension Examples
+
+Beyond the core `!send` and `!add` directives, you can define more directives that fit your business needs:
+
+```markdown
+<!-- File operations -->
+[Open config file](!open_file:config.json)
+
+<!-- Code application -->
+[Apply this code](!apply_code)
+
+<!-- Workflow triggers -->
+[Start deployment process](!trigger_workflow:deploy)
+
+<!-- Media interactions -->
+[Play demo video](!play_media:demo.mp4)
+```
+
+### Implementing Custom Directives
+
+In your client implementation, simply extend the directive handling logic:
+
+```javascript
+function IACTLink({ href, children }) {
+  if (href.startsWith('!')) {
+    const [directive, ...params] = href.slice(1).split(':');
+    const payload = extractText(children);
+
+    const handleClick = (e) => {
+      e.preventDefault();
+
+      // Core directives
+      if (directive === 'send') {
+        chatInterface.sendMessage(payload);
+      } else if (directive === 'add') {
+        chatInterface.appendToInputBox(payload);
+      }
+      // Custom directives
+      else if (directive === 'open_file') {
+        fileSystem.openFile(params[0]);
+      } else if (directive === 'apply_code') {
+        codeEditor.applyCode(payload);
+      } else if (directive === 'trigger_workflow') {
+        workflowEngine.trigger(params[0]);
+      }
+    };
+
+    return (
+      <a href="#" className="iact-anchor" onClick={handleClick}>
+        {children}
+      </a>
+    );
+  }
+
+  return <a href={href}>{children}</a>;
+}
+```
+
+### Extension Principles
+
+When extending custom directives, we recommend following these principles:
+
+1. **Clear Semantics**: Directive names should intuitively express their functionality
+2. **Concise Parameters**: Use `:` to separate directives and parameters, keeping syntax simple
+3. **Security First**: Avoid executing arbitrary code or accessing sensitive resources
+4. **Backward Compatibility**: Ensure custom directives don't conflict with core directives
 
 ## 🤝 Contributing
 

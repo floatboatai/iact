@@ -22,6 +22,7 @@
 - ⚡ **零操作摩擦** - 点击文本即刻触发意图流转
 - 🔄 **优雅降级** - 在普通 Markdown 渲染器中显示为普通链接
 - 🔒 **安全可控** - 不支持执行脚本或跳转隐蔽链接
+- 🔧 **无限扩展** - 开发者可根据业务场景自由定义自定义指令
 
 ## 🚀 快速开始
 
@@ -102,6 +103,77 @@ function IACTLink({ href, children }) {
   return <a href={href}>{children}</a>;
 }
 ```
+
+## 🔧 协议扩展
+
+IACT 协议在设计上是**开放且可无限扩展的**。开发者可以根据自身 Agent 的业务场景和客户端能力，自由扩展定义任何以 `!` 开头的自定义指令。
+
+### 扩展示例
+
+除了核心的 `!send` 和 `!add` 指令，你可以定义更多符合业务需求的指令：
+
+```markdown
+<!-- 文件操作 -->
+[打开配置文件](!open_file:config.json)
+
+<!-- 代码应用 -->
+[应用这段代码](!apply_code)
+
+<!-- 工作流触发 -->
+[启动部署流程](!trigger_workflow:deploy)
+
+<!-- 多媒体交互 -->
+[播放演示视频](!play_media:demo.mp4)
+```
+
+### 实现自定义指令
+
+在你的客户端实现中，只需扩展指令处理逻辑：
+
+```javascript
+function IACTLink({ href, children }) {
+  if (href.startsWith('!')) {
+    const [directive, ...params] = href.slice(1).split(':');
+    const payload = extractText(children);
+
+    const handleClick = (e) => {
+      e.preventDefault();
+
+      // 核心指令
+      if (directive === 'send') {
+        chatInterface.sendMessage(payload);
+      } else if (directive === 'add') {
+        chatInterface.appendToInputBox(payload);
+      }
+      // 自定义指令
+      else if (directive === 'open_file') {
+        fileSystem.openFile(params[0]);
+      } else if (directive === 'apply_code') {
+        codeEditor.applyCode(payload);
+      } else if (directive === 'trigger_workflow') {
+        workflowEngine.trigger(params[0]);
+      }
+    };
+
+    return (
+      <a href="#" className="iact-anchor" onClick={handleClick}>
+        {children}
+      </a>
+    );
+  }
+
+  return <a href={href}>{children}</a>;
+}
+```
+
+### 扩展原则
+
+在扩展自定义指令时，建议遵循以下原则：
+
+1. **语义清晰**：指令名称应直观表达其功能
+2. **参数简洁**：使用 `:` 分隔指令和参数，保持语法简洁
+3. **安全优先**：避免执行任意代码或访问敏感资源
+4. **向后兼容**：确保自定义指令不与核心指令冲突
 
 ## 🤝 贡献
 
