@@ -1,81 +1,81 @@
-# IACT (Inline Action-Clicked Text) 协议
+# IACT (Inline Action-Clicked Text) Protocol
 
 <div align="center">
 
-**一种专为 AI Agent 设计的超轻量级行内交互协议**
+**An ultra-lightweight inline interaction protocol designed for AI Agents**
 
-[English](./README_EN.md) | 简体中文
+English | [简体中文](./README-zh.md)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 </div>
 
-## 📖 简介
+## 📖 Introduction
 
-**IACT (Inline Action-Clicked Text)** 是一种基于 Markdown 的行内交互协议，专为 AI Agent 和 LLM 对话界面设计。
+**IACT (Inline Action-Clicked Text)** is a Markdown-based inline interaction protocol designed specifically for AI Agents and LLM chat interfaces.
 
-传统 Chat 界面中，AI 提供选项时通常采用列表或按钮块，打断对话流畅性。IACT 通过扩展 Markdown 链接语法，将**可交互的动作锚点**直接嵌入自然语言句子中，实现"阅读即操作"。
+In traditional chat interfaces, when AI provides options, it typically uses lists or button blocks, disrupting conversation flow. IACT extends Markdown link syntax to embed **interactive action anchors** directly into natural language sentences, achieving "reading is interacting".
 
-## ✨ 核心特性
+## ✨ Core Features
 
-- 🎯 **行内优于块状** - 操作选项是自然语言的有机组成部分
-- ⚡ **零操作摩擦** - 点击文本即刻触发意图流转
-- 🔄 **优雅降级** - 在普通 Markdown 渲染器中显示为普通链接
-- 🔒 **安全可控** - 不支持执行脚本或跳转隐蔽链接
+- 🎯 **Inline over Block** - Action options are organic parts of natural language
+- ⚡ **Zero Friction** - Click text to instantly trigger intent flow
+- 🔄 **Seamless Degradation** - Displays as normal links in standard Markdown renderers
+- 🔒 **Security & Constraints** - No script execution or hidden link jumping
 
-## 🚀 快速开始
+## 🚀 Quick Start
 
-### 基础语法
-
-```markdown
-[显示文本](!指令)
-```
-
-### 核心指令
-
-#### `!send` - 直接发送
-将文本作为用户输入直接发送给 AI：
+### Basic Syntax
 
 ```markdown
-我可以为您 [深入调研当前市场](!send) 或是直接 [生成一份行业研报草稿](!send)。
+[Display Text](!directive)
 ```
 
-#### `!add` - 补充代入
-将文本填充到输入框，等待用户补充后发送：
+### Core Directives
+
+#### `!send` - Send Directly
+Send text as user input directly to AI:
 
 ```markdown
-你可以[补充更多细节](!add)，比如告诉我你需要哪些[特别的视觉样式](!add)。
+I can [conduct a deep market research](!send) for you, or directly [generate an industry report draft](!send).
 ```
 
-## 📸 示例演示
+#### `!add` - Add to Input
+Fill text into input box, waiting for user to supplement before sending:
 
-下图展示了 IACT 协议在实际对话中的应用效果：
+```markdown
+You can [provide more details](!add), for example, tell me what [specific visual styles](!add) you need.
+```
 
-![IACT 协议示例](./assets/iact-demo.jpg)
+## 📸 Example Demo
 
-在这个示例中，AI 在回复用户时自然地嵌入了多个可交互的文本锚点：
+The image below demonstrates the IACT protocol in action:
 
-- **"[生成一个完整的 PPT 大纲](!send)"** - 使用 `!send` 指令，用户点击后会立即将这段文本作为新的对话输入发送给 AI，无需手动输入
-- **"[调整某个具体章节的内容](!add)"** - 使用 `!add` 指令，点击后会将文本填充到输入框中，用户可以继续补充具体要调整哪个章节
+![IACT Protocol Example](./assets/iact-demo.jpg)
 
-这种设计的优势在于：
-1. **流畅性**：交互选项完全融入自然语言句子，不打断阅读体验
-2. **直观性**：用户一眼就能看到可以做什么，无需理解复杂的按钮布局
-3. **高效性**：点击即可触发动作，减少了"思考→输入→发送"的操作步骤
+In this example, the AI naturally embeds multiple interactive text anchors in its response:
 
-## 🔗 相关项目
+- **"[生成一个完整的 PPT 大纲](!send)"** (Generate a complete PPT outline) - Uses the `!send` directive. When clicked, this text is immediately sent as a new conversation input to the AI, without manual typing
+- **"[调整某个具体章节的内容](!add)"** (Adjust specific section content) - Uses the `!add` directive. When clicked, the text is filled into the input box, allowing the user to continue specifying which section to adjust
 
-- [Selfware](https://github.com/floatboatai/selfware) - IACT 协议的实际应用场景和实现示例
+The advantages of this design:
+1. **Fluency**: Interactive options are fully integrated into natural language sentences without disrupting the reading experience
+2. **Intuitiveness**: Users can see at a glance what they can do, without understanding complex button layouts
+3. **Efficiency**: Clicking triggers actions immediately, reducing the "think → type → send" workflow
 
-## 📚 完整规范
+## 🔗 Related Projects
 
-详细的协议规范请参阅：
-- [中文规范](./IACT_Protocol_Specification.md)
+- [Selfware](https://github.com/floatboatai/selfware) - Practical application scenarios and implementation examples of IACT protocol
+
+## 📚 Full Specification
+
+For detailed protocol specification, please refer to:
 - [English Specification](./IACT_Protocol_Specification_EN.md)
+- [中文规范](./IACT_Protocol_Specification.md)
 
-## 💻 实现指南
+## 💻 Implementation Guide
 
-在前端渲染器中实现 IACT 非常简单：
+Implementing IACT in front-end renderers is straightforward:
 
 ```javascript
 function IACTLink({ href, children }) {
@@ -103,13 +103,13 @@ function IACTLink({ href, children }) {
 }
 ```
 
-## 🤝 贡献
+## 🤝 Contributing
 
-欢迎提交 Issue 和 Pull Request！
+Issues and Pull Requests are welcome!
 
-## 📄 开源协议
+## 📄 License
 
-本协议基于 [MIT License](./LICENSE) 完全开源。
+This protocol is fully open-sourced under the [MIT License](./LICENSE).
 
 ---
 
