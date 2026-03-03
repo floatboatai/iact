@@ -51,12 +51,12 @@ You can [provide more details](!add), for example, tell me what [specific visual
 
 The image below demonstrates the IACT protocol in action:
 
-![IACT Protocol Example](./assets/iact-demo.jpg)
+![IACT Protocol Example](./assets/iact-demo-en.jpg)
 
 In this example, the AI naturally embeds multiple interactive text anchors in its response:
 
-- **"[生成一个完整的 PPT 大纲](!send)"** (Generate a complete PPT outline) - Uses the `!send` directive. When clicked, this text is immediately sent as a new conversation input to the AI, without manual typing
-- **"[调整某个具体章节的内容](!add)"** (Adjust specific section content) - Uses the `!add` directive. When clicked, the text is filled into the input box, allowing the user to continue specifying which section to adjust
+- **`[generate a complete PPT outline](!send)`** - Uses the `!send` directive. When clicked, this text is immediately sent as a new conversation input to the AI, without manual typing
+- **`[adjust specific section content](!add)`** - Uses the `!add` directive. When clicked, the text is filled into the input box, allowing the user to continue specifying which section to adjust
 
 The advantages of this design:
 1. **Fluency**: Interactive options are fully integrated into natural language sentences without disrupting the reading experience
