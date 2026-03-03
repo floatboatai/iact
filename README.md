@@ -114,5 +114,5 @@ function IACTLink({ href, children }) {
 ---
 
 <div align="center">
-Made with ❤️ by FloatBoat AI
+Made with ❤️ by <a href="https://floatboat.ai">FloatBoat AI</a>
 </div>
